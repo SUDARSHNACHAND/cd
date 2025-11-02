@@ -1,12 +1,12 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
-#include "y.tab.h"
+#include "ex4.tab.h"
 %}
 
 %%
 [0-9]+          { yylval = atoi(yytext); return NUM; }
-[\t ]+          ;             /* ignore whitespace */
+[\t ]+          ;               /* Ignore whitespace */
 \n              { return EOL; }
 "+"             { return '+'; }
 "-"             { return '-'; }
