@@ -4,27 +4,25 @@
 %}
 
 %%
-"="              { printf("\n%s is an Assignment operator", yytext); }
-"<="|">="|"<"|">"|"=="  { printf("\n%s is a Relational operator", yytext); }
-"+"|"-"|"*"|"/"          { printf("\n%s is an Arithmetic operator", yytext); }
-[a-zA-Z_][a-zA-Z0-9_]*   { printf("\nIdentifier: %s", yytext); }
-[0-9]+                   { printf("\nConstant: %s", yytext); }
-[ \t\n]+                 ;  /* Ignore spaces and newlines */
-.                        { printf("\nUnknown symbol: %s", yytext); }
+"="                     { printf("= is an Assignment operator "); }
+"<="|">="|"<"|">"|"=="  { printf("%s is a relational operator ", yytext); }
+.|\n                    { ECHO; }   /* Print all other characters normally */
 %%
 
-int main(int argc, char **argv) {
-    FILE *file;
-    if (argc > 1) {
-        file = fopen(argv[1], "r");
-        if (!file) {
-            printf("Cannot open file: %s\n", argv[1]);
+int main(int argc, char **argv)
+{
+    if(argc > 1)
+    {
+        FILE *file = fopen(argv[1], "r");
+        if(!file)
+        {
+            printf("\nCould not open the file: %s", argv[1]);
             exit(1);
         }
         yyin = file;
     }
-    printf("Analyzing tokens...\n");
+
     yylex();
-    printf("\n\nLexical analysis complete.\n");
+    printf("\n");
     return 0;
 }
